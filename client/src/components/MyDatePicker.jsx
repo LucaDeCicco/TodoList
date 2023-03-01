@@ -5,6 +5,7 @@ import { startOfDay } from "date-fns";
 const MyDatePicker = () => {
     const [date, setDate] = useState(startOfDay(new Date()));
 
+    console.log("data: "+date);
     return (
         <SingleDatepicker
             name="date-input"

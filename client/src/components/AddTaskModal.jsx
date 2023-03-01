@@ -33,9 +33,7 @@ const AddTaskModal = () => {
                         <br/>
                         <MyDatePicker/>
                         <br/>
-                        {/*<br/>*/}
                         <EstimationDuration/>
-                        <div>Lorem ipsum Lorem ipsum Lorem ipsum Lorem ipsum</div>
                     </ModalBody>
 
                     <ModalFooter>
