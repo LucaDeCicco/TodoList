@@ -12,10 +12,23 @@ import MySelect from "./MySelect";
 import MyInput from "./MyInput";
 import MyDatePicker from "./MyDatePicker";
 import EstimationDuration from "./EstimationDuration";
+import { postTask } from '../util/TaskService';
+import {useAtom} from "jotai";
+import {ADD_TASK_DETAILS, FALSE_RELOAD} from "../util/TaskStore";
 
 const AddTaskModal = () => {
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [taskDetails] = useAtom(ADD_TASK_DETAILS);
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const taskTypes = ["WORK","HOME","HOBBY"]
+    const [reload, setReload] = useAtom(FALSE_RELOAD);
+
+    const submit =()=> {
+        postTask(taskDetails);
+        console.log("reload"+reload);
+        onClose();
+        setReload(!reload);
+    }
 
     return (
         <>
@@ -24,20 +37,23 @@ const AddTaskModal = () => {
             <Modal isOpen={isOpen} onClose={onClose}>
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
+                    <ModalHeader>Add Task</ModalHeader>
                     <ModalCloseButton />
+
                     <ModalBody>
-                        <MySelect/>
+                        <b>Choose your task type</b>
+                        <MySelect data={taskTypes}/>
                         <br/>
-                        <MyInput/>
+                        <MyInput data={"Name"}/>
                         <br/>
+                        <b>When is the deadline</b>
                         <MyDatePicker/>
                         <br/>
                         <EstimationDuration/>
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='whatsapp'>Submit</Button>
+                        <Button colorScheme='whatsapp' onClick={submit}>Submit</Button>
                     </ModalFooter>
                 </ModalContent>
             </Modal>

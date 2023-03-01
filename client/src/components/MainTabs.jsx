@@ -10,6 +10,7 @@ const MainTabs = (props) => {
     const {data}=props
 
     return (
+
         <div className={"mainTabs"}>
             <ChakraProvider>
                 <Tabs>
@@ -20,12 +21,12 @@ const MainTabs = (props) => {
                     <TabPanels className={"tabPanels"}>
                         <TabPanel>
                             <div>
-                                <TaskList />
+                                <TaskList data={data.toDoTasks}/>
                             </div>
                         </TabPanel>
                         <TabPanel>
                             <div>
-                                altceva
+                                <TaskList data={data.doneTasks}/>
                             </div>
                         </TabPanel>
                     </TabPanels>

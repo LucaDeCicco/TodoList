@@ -8,6 +8,7 @@
     "date-fns": "^2.29.3",
     "dayzed": "^3.2.3",
     "framer-motion": "^10.0.1",
+    "jotai": "^2.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.2",

@@ -30,4 +30,20 @@ public class TaskController {
     public List<Task> getTasks(){
         return taskService.get();
     }
+
+    @GetMapping("/todo")
+    public List<Task> getToDoTasks(){
+        return taskService.getToDo();
+    }
+
+    @GetMapping("/done")
+    public List<Task> getDoneTasks(){
+        return taskService.getDone();
+    }
+
+    //TODO de inlocuit void
+    @DeleteMapping("/delete/{id}")
+    public void delete(@PathVariable Long id){
+        taskService.delete(id);
+    }
 }

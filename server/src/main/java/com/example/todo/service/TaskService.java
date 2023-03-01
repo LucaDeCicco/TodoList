@@ -35,4 +35,16 @@ public class TaskService {
     public List<Task> get(){
         return taskRepository.findAll();
     }
+
+    public List<Task> getToDo(){
+        return taskRepository.findTaskByStatus(TaskStatus.TODO);
+    }
+
+    public List<Task> getDone(){
+        return taskRepository.findTaskByStatus(TaskStatus.DONE);
+    }
+
+    public void delete(Long id){
+        taskRepository.deleteById(id);
+    }
 }
