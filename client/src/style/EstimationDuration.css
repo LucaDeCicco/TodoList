@@ -6,6 +6,14 @@
     grid-row-gap: 0px;
 }
 
-.daysEstimation { grid-area: 1 / 1 / 2 / 2; }
-.hoursEstimation { grid-area: 1 / 2 / 2 / 3; }
-.minEstimation { grid-area: 1 / 3 / 2 / 4; }
+.daysEstimation {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+.hoursEstimation {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.minEstimation {
+    grid-area: 1 / 3 / 2 / 4;
+}

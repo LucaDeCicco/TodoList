@@ -47,4 +47,10 @@ public class TaskService {
     public void delete(Long id){
         taskRepository.deleteById(id);
     }
+
+    public void doneUpdate(Long id){
+        Task task = taskRepository.getReferenceById(id);
+        task.setStatus(TaskStatus.DONE);
+        taskRepository.save(task);
+    }
 }

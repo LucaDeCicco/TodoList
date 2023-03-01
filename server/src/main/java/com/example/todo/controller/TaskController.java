@@ -46,4 +46,10 @@ public class TaskController {
     public void delete(@PathVariable Long id){
         taskService.delete(id);
     }
+
+    @PatchMapping("/doneUpdate/{id}")
+    public void doneUpdate(@PathVariable Long id){
+        taskService.doneUpdate(id);
+    }
+
 }
