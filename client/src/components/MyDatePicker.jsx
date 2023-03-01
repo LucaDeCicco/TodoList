@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { SingleDatepicker } from "chakra-dayzed-datepicker";
 import { startOfDay } from "date-fns";
 import { useAtom } from "jotai";
-import { ADD_TASK_DETAILS } from "../util/TaskStore";
+import { ADD_TASK_DETAILS } from "../TaskStore";
 
 const MyDatePicker = () => {
-  const [date, setDate] = useState(startOfDay(new Date()));
+  const [date, setDate] = useState();
   const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);
 
   useEffect(() => {

@@ -4,11 +4,12 @@ import {
   TabList,
   TabPanels,
   Tab,
-  TabPanel,
   ChakraProvider,
 } from "@chakra-ui/react";
 import "../style/MainTabs.css";
-import TaskList from "./TaskList";
+import FilterSelect from "./FilterSelect";
+import MainTabToDo from "./MainTabToDo";
+import MainTabDone from "./MainTabDone";
 
 const MainTabs = ({ data }) => (
   <div className="mainTabs">
@@ -17,18 +18,13 @@ const MainTabs = ({ data }) => (
         <TabList>
           <Tab>To Do</Tab>
           <Tab>Done</Tab>
+          <div className="filterSelect">
+            <FilterSelect />
+          </div>
         </TabList>
         <TabPanels className="tabPanels">
-          <TabPanel>
-            <div>
-              <TaskList data={data.toDoTasks} />
-            </div>
-          </TabPanel>
-          <TabPanel>
-            <div>
-              <TaskList data={data.doneTasks} />
-            </div>
-          </TabPanel>
+          <MainTabToDo data={data.toDoTasks} />
+          <MainTabDone data={data.doneTasks} />
         </TabPanels>
       </Tabs>
     </ChakraProvider>

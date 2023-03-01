@@ -1,4 +1,4 @@
-package com.example.todo.model;
+package com.example.todo.models;
 
 import com.example.todo.enums.TaskStatus;
 import com.example.todo.enums.TaskType;

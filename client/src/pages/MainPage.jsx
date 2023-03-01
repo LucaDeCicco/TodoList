@@ -5,24 +5,27 @@ import "../style/MainPage.css";
 import AddTaskModal from "../components/AddTaskModal";
 import Loading from "../components/Loading";
 import { useAtom } from "jotai";
-import { FALSE_RELOAD } from "../util/TaskStore";
+import { FALSE_RELOAD } from "../TaskStore";
+
+const BACKEND = import.meta.env.VITE_BACKEND;
 
 const MainPage = () => {
   const [toDoTasks, setToDoTasks] = useState();
   const [doneTasks, setDoneTasks] = useState();
   const [reload] = useAtom(FALSE_RELOAD);
+  // const [filterType, setFilterType] =
 
   const loadTasks = async () => {
     try {
-      const responseToDo = await fetch(`http://localhost:8888/task/todo`);
+      const responseToDo = await fetch(`${BACKEND}/TODO`);
       const toDo = await responseToDo.json();
-      const responseDone = await fetch(`http://localhost:8888/task/done`);
+      const responseDone = await fetch(`${BACKEND}/DONE`);
       const done = await responseDone.json();
 
       setToDoTasks(toDo);
       setDoneTasks(done);
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
   };
 

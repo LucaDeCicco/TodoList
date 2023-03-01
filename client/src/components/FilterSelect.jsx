@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { Select, ChakraProvider } from "@chakra-ui/react";
-import { ADD_TASK_DETAILS } from "../TaskStore";
+import { ChakraProvider, Select } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import "../style/MySelect.css";
+import { FILTER_TYPE } from "../TaskStore";
 
-const MySelect = ({ data }) => {
+const FilterSelect = () => {
   const [selectedOption, setSelectedOption] = useState();
-  const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);
+  const [filterType, setFilterType] = useAtom(FILTER_TYPE);
+  const sortCriteria = [
+    "Sort by deadline ascending",
+    "Sort by deadline descending",
+  ];
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    taskDetails.taskType = event.target.value;
-    setTaskDetails(taskDetails);
+    setFilterType(event.target.value);
   };
 
   return (
@@ -20,9 +22,9 @@ const MySelect = ({ data }) => {
         placeholder="Select option"
         value={selectedOption}
         onChange={handleSelectChange}
-        className={"simpleSelect"}
+        className="chakraFilterSelect"
       >
-        {data?.map((item) => (
+        {sortCriteria.map((item) => (
           <option key={item} value={item}>
             {item}
           </option>
@@ -32,4 +34,4 @@ const MySelect = ({ data }) => {
   );
 };
 
-export default MySelect;
+export default FilterSelect;

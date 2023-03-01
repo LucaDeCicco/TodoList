@@ -10,3 +10,5 @@ export const ADD_TASK_DETAILS = atom({
 });
 
 export const FALSE_RELOAD = atom(true);
+
+export const FILTER_TYPE = atom("");

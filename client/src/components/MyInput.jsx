@@ -1,7 +1,8 @@
 import React from "react";
 import { Input } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { ADD_TASK_DETAILS } from "../util/TaskStore";
+import { ADD_TASK_DETAILS } from "../TaskStore";
+import "../style/MyInput.css";
 
 const MyInput = ({ data }) => {
   const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);
@@ -12,9 +13,11 @@ const MyInput = ({ data }) => {
   };
 
   return (
-    <div>
-      <Input placeholder={data} onChange={handleInputChange} />
-    </div>
+    <Input
+      className={"nameOfTaskInput"}
+      placeholder={data}
+      onChange={handleInputChange}
+    />
   );
 };
 

@@ -10,7 +10,7 @@ import {
   NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { ADD_TASK_DETAILS } from "../util/TaskStore";
+import { ADD_TASK_DETAILS } from "../TaskStore";
 
 const MyNumberInput = ({ data }) => {
   const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);

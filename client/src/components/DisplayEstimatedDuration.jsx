@@ -1,12 +1,13 @@
 import React from "react";
 import { Divider } from "@chakra-ui/react";
+import "../style/DisplayEstimatedDuration.css";
 
 const DisplayEstimatedDuration = ({ data }) => (
   <div>
-    <Divider style={{ marginBottom: "0.5em", marginTop: "0.5em" }} />
-    <p style={{ float: "left" }}>Estimated duration : &nbsp;&nbsp;&nbsp;</p>
-    <p style={{ float: "left" }}>days:{data.days}/</p>
-    <p style={{ float: "left" }}>hours:{data.hours}/</p>
+    <Divider className={"setTimeDivider"} />
+    <p className={"setTime"}>Estimated duration : &nbsp;&nbsp;&nbsp;</p>
+    <p className={"setTime"}>days:{data.days}/</p>
+    <p className={"setTime"}>hours:{data.hours}/</p>
     <p>min:{data.min}</p>
   </div>
 );
