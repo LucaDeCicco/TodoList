@@ -2,9 +2,13 @@ import React from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react';
 import { ChakraProvider } from '@chakra-ui/react';
 import '../style/MainTabs.css'
+import TaskList from "./TaskList";
 
 
-const MainTabs = () => {
+const MainTabs = (props) => {
+
+    const {data}=props
+
     return (
         <div className={"mainTabs"}>
             <ChakraProvider>
@@ -13,12 +17,16 @@ const MainTabs = () => {
                         <Tab>To Do</Tab>
                         <Tab>Done</Tab>
                     </TabList>
-                    <TabPanels>
+                    <TabPanels className={"tabPanels"}>
                         <TabPanel>
-                            <p>one!</p>
+                            <div>
+                                <TaskList />
+                            </div>
                         </TabPanel>
                         <TabPanel>
-                            <p>two!</p>
+                            <div>
+                                altceva
+                            </div>
                         </TabPanel>
                     </TabPanels>
                 </Tabs>

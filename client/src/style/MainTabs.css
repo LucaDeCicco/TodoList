@@ -2,4 +2,13 @@
     margin-left: 25%;
     max-width: 50%;
     margin-top: 5em;
+    margin-bottom: 1em;
+}
+
+.tabPanels{
+    background-color: #e8f2f8;
+    height: 500px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align:justify;
 }
