@@ -86,6 +86,7 @@ const MainPage = () => {
 
   return (
     <div>
+      <h1 className={"userName"}>De Cicco Luca</h1>
       {toDoTasks && doneTasks ? (
         <MainTabs data={{ toDoTasks: toDoTasks, doneTasks: doneTasks }} />
       ) : (

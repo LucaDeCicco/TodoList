@@ -1,8 +1,10 @@
 package com.example.todo.payloads;
 
 import com.example.todo.enums.TaskType;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 
 import java.util.Date;
@@ -13,13 +15,13 @@ public class TaskRequest {
     private TaskType taskType;
     @NotBlank
     private String name;
-    @NotNull
+    @Future
     private Date deadline;
-    @NotNull
+    @PositiveOrZero
     private int estimatedDays;
-    @NotNull
+    @PositiveOrZero
     private int estimatedHours;
-    @NotNull
+    @PositiveOrZero
     private int estimatedMin;
 
     @Override

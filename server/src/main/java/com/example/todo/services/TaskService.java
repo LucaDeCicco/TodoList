@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class TaskService {
@@ -21,28 +20,27 @@ public class TaskService {
     }
 
     private boolean validate(TaskRequest taskRequest) {
-//        Date date = new Date();
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date yesterday = cal.getTime();
         if (taskRequest.getDeadline().before(yesterday)) {
             return false;
         }
-        return taskRequest.getEstimatedDays() >= 0 &&
-                taskRequest.getEstimatedHours() >= 0 &&
-                taskRequest.getEstimatedMin() >= 0;
+        return taskRequest.getEstimatedDays() >=
+                0 && taskRequest.getEstimatedHours() >=
+                0 && taskRequest.getEstimatedMin() >= 0;
     }
 
     public void save(TaskRequest taskRequest) {
         boolean valid = validate(taskRequest);
         if (valid) {
-            Task task = new Task(taskRequest.getTaskType(),
+            Task task = new Task(
+                    taskRequest.getTaskType(),
                     taskRequest.getName(),
                     taskRequest.getDeadline(),
                     taskRequest.getEstimatedDays(),
                     taskRequest.getEstimatedHours(),
-                    taskRequest.getEstimatedMin()
-            );
+                    taskRequest.getEstimatedMin());
             taskRepository.save(task);
         }
     }
@@ -59,24 +57,17 @@ public class TaskService {
         }
     }
 
-//    public List<Task> getTasksByStatusOrdered(TaskStatus taskStatus, String criteria) {
-//        if ("ascending".equals(criteria)) {
-//            return taskRepository.findTaskByStatusOrderByDeadlineAsc(taskStatus);
-//        }
-//        if ("descending".equals(criteria)) {
-//            return taskRepository.findTaskByStatusOrderByDeadlineDesc(taskStatus);
-//        } else {
-//            return taskRepository.findTaskByStatus(taskStatus);
-//        }
-//    }
-
     public void delete(Long id) {
-        taskRepository.deleteById(id);
+        if (taskRepository.getReferenceById(id).getStatus()!=TaskStatus.done){
+            taskRepository.deleteById(id);
+        }
     }
 
     public void doneUpdate(Long id) {
-        Task task = taskRepository.getReferenceById(id);
-        task.setStatus(TaskStatus.done);
-        taskRepository.save(task);
+        if (taskRepository.getReferenceById(id).getStatus()!=TaskStatus.done){
+            Task task = taskRepository.getReferenceById(id);
+            task.setStatus(TaskStatus.done);
+            taskRepository.save(task);
+        }
     }
 }
