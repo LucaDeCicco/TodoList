@@ -13,14 +13,14 @@ function prepareTaskObject(task) {
 
 export const postTask = async (task) => {
   try {
-    await fetch(`${BACKEND}`, {
+    const result = await fetch(`${BACKEND}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: prepareTaskObject(task),
     });
-    return true;
+    return result.ok;
   } catch (e) {
     console.log(e);
     return false;

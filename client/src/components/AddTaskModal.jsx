@@ -5,6 +5,7 @@ import {
   ModalContent,
   Button,
   useDisclosure,
+  useToast,
 } from "@chakra-ui/react";
 import { postTask } from "../service/TaskService";
 import { useAtom } from "jotai";
@@ -15,16 +16,24 @@ import AddTaskModalBody from "./AddTaskModalBody";
 
 const AddTaskModal = () => {
   const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);
-  //destructuring
   const { isOpen, onOpen, onClose } = useDisclosure();
-  //temp hardcoded
   const taskTypes = ["WORK", "HOME", "HOBBY"];
   const [reload, setReload] = useAtom(FALSE_RELOAD);
+  const toast = useToast();
+
+  const showToast = ({ title, description, status, duration, isClosable }) => {
+    toast({
+      title,
+      description,
+      status,
+      duration,
+      isClosable,
+    });
+  };
 
   const submitTask = async () => {
     const added = await postTask(taskDetails);
-    onClose();
-    setReload(!reload);
+
     if (added) {
       const clearDetails = {
         taskType: undefined,
@@ -35,6 +44,23 @@ const AddTaskModal = () => {
         estimatedMin: 0,
       };
       setTaskDetails(clearDetails);
+      onClose();
+      setReload(!reload);
+      showToast({
+        title: "Task added",
+        description: "",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } else {
+      showToast({
+        title: "Something went wrong",
+        description: "",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 

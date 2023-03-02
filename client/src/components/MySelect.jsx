@@ -18,7 +18,7 @@ const MySelect = ({ data }) => {
     <ChakraProvider>
       <Select
         placeholder="Select option"
-        value={selectedOption}
+        value={taskDetails ? taskDetails.taskType : selectedOption}
         onChange={handleSelectChange}
         className={"simpleSelect"}
       >
