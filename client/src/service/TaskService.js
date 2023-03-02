@@ -47,8 +47,16 @@ export const updateTaskStatus = async (id) => {
   }
 };
 
-export const sortTasksAscending = (toDoTasks) => {
-  return [...toDoTasks]?.sort(
+export const sortTasksAscending = (tasks) => {
+  console.log("service");
+  console.log(tasks);
+  return [...tasks]?.sort(
     (a, b) => new Date(a.deadline) - new Date(b.deadline)
   );
+};
+
+export const sortTasksDescending = (tasks) => {
+  return [...tasks]
+    ?.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+    .reverse();
 };

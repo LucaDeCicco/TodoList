@@ -6,6 +6,10 @@ import AddTaskModal from "../components/AddTaskModal";
 import Loading from "../components/Loading";
 import { useAtom } from "jotai";
 import { FALSE_RELOAD, SORT_CRITERIA, SORT_TYPE } from "../TaskStore";
+import {
+  sortTasksAscending,
+  sortTasksDescending,
+} from "../service/TaskService";
 
 const BACKEND = import.meta.env.VITE_BACKEND;
 
@@ -18,9 +22,22 @@ const MainPage = () => {
 
   async function getData(toDoRoute, doneRoute) {
     const responseToDo = await fetch(toDoRoute);
-    setToDoTasks(await responseToDo.json());
+    const toDoData = await responseToDo.json();
     const responseDone = await fetch(doneRoute);
-    setDoneTasks(await responseDone.json());
+    const doneData = await responseDone.json();
+    if (sortType) {
+      if (sortType === sortCriteria[0]) {
+        setToDoTasks(() => sortTasksAscending(toDoData));
+        setToDoTasks(() => sortTasksAscending(doneData));
+      }
+      if (sortType === sortCriteria[1]) {
+        setToDoTasks(() => sortTasksDescending(toDoData));
+        setToDoTasks(() => sortTasksDescending(doneData));
+      }
+    } else {
+      setToDoTasks(toDoData);
+      setDoneTasks(doneData);
+    }
   }
 
   function getRoutes() {
@@ -40,28 +57,12 @@ const MainPage = () => {
 
   const sortTasks = () => {
     if (sortType === sortCriteria[0]) {
-      setToDoTasks(
-        [...toDoTasks]?.sort(
-          (a, b) => new Date(a.deadline) - new Date(b.deadline)
-        )
-      );
-      setDoneTasks(
-        [...doneTasks]?.sort(
-          (a, b) => new Date(a.deadline) - new Date(b.deadline)
-        )
-      );
+      setToDoTasks(sortTasksAscending(toDoTasks));
+      setDoneTasks(sortTasksAscending(doneTasks));
     }
     if (sortType === sortCriteria[1]) {
-      setToDoTasks(
-        [...toDoTasks]
-          ?.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-          .reverse()
-      );
-      setDoneTasks(
-        [...doneTasks]
-          ?.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
-          .reverse()
-      );
+      setToDoTasks(sortTasksDescending(toDoTasks));
+      setDoneTasks(sortTasksDescending(doneTasks));
     }
   };
 
