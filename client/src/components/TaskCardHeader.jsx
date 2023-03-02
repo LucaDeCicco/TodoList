@@ -26,7 +26,7 @@ const TaskCardHeader = ({ data }) => {
           {data.taskType === "HOBBY" ? <StarIcon /> : null}
           <Box>
             <Heading size="sm">{data.taskType}</Heading>
-            {checkDeadline() ? (
+            {checkDeadline() && data.status !== "done" ? (
               <Text style={{ color: "red" }}>Deadline: {getDate()}</Text>
             ) : (
               <Text>Deadline: {getDate()}</Text>
