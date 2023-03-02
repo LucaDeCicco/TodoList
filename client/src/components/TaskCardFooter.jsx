@@ -28,7 +28,7 @@ const TaskCardFooter = ({ data }) => {
         },
       }}
     >
-      {data.status !== "DONE" ? (
+      {data.status !== "done" ? (
         <>
           <Button
             id={data.id}

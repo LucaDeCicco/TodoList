@@ -9,6 +9,14 @@ const TaskCardHeader = ({ data }) => {
     return deadline.toISOString().split("T")[0];
   }
 
+  const checkDeadline = () => {
+    const currentDate = new Date();
+    const deadline = new Date(data.deadline);
+    const diffInMs = deadline.getTime() - currentDate.getTime();
+    const diffInDays = diffInMs / (24 * 60 * 60 * 1000);
+    return diffInDays <= 1;
+  };
+
   return (
     <CardHeader>
       <Flex spacing="4">
@@ -18,7 +26,11 @@ const TaskCardHeader = ({ data }) => {
           {data.taskType === "HOBBY" ? <StarIcon /> : null}
           <Box>
             <Heading size="sm">{data.taskType}</Heading>
-            <Text>Deadline: {getDate()}</Text>
+            {checkDeadline() ? (
+              <Text style={{ color: "red" }}>Deadline: {getDate()}</Text>
+            ) : (
+              <Text>Deadline: {getDate()}</Text>
+            )}
           </Box>
         </Flex>
       </Flex>

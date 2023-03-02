@@ -20,24 +20,28 @@ const MainPage = () => {
   const [sortType] = useAtom(SORT_TYPE);
   const sortCriteria = SORT_CRITERIA;
 
+  const sortingFunction = (a, b) => {
+    if (sortType === null) return 0;
+    const order =
+      sortType === sortCriteria[0] //  ascending
+        ? 1
+        : sortType === sortCriteria[1] //  descending
+        ? -1
+        : 0;
+    // console.log(a.deadline);
+    // console.log(b.deadline);
+    // console.log(Math.sign(new Date(a.deadline) - new Date(b.deadline)) * order);
+    return Math.sign(new Date(a.deadline) - new Date(b.deadline)) * order;
+  };
+
   async function getData(toDoRoute, doneRoute) {
     const responseToDo = await fetch(toDoRoute);
     const toDoData = await responseToDo.json();
     const responseDone = await fetch(doneRoute);
     const doneData = await responseDone.json();
-    if (sortType) {
-      if (sortType === sortCriteria[0]) {
-        setToDoTasks(() => sortTasksAscending(toDoData));
-        setToDoTasks(() => sortTasksAscending(doneData));
-      }
-      if (sortType === sortCriteria[1]) {
-        setToDoTasks(() => sortTasksDescending(toDoData));
-        setToDoTasks(() => sortTasksDescending(doneData));
-      }
-    } else {
-      setToDoTasks(toDoData);
-      setDoneTasks(doneData);
-    }
+    setToDoTasks(toDoData.sort(sortingFunction));
+    setDoneTasks(doneData.sort(sortingFunction));
+    setDoneTasks(doneData);
   }
 
   function getRoutes() {
