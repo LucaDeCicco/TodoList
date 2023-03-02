@@ -11,4 +11,9 @@ export const ADD_TASK_DETAILS = atom({
 
 export const FALSE_RELOAD = atom(true);
 
-export const FILTER_TYPE = atom("");
+export const SORT_TYPE = atom(null);
+
+export const SORT_CRITERIA = [
+  "Sort by deadline ascending",
+  "Sort by deadline descending",
+];

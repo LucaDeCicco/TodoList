@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import { ChakraProvider, Select } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { FALSE_RELOAD, FILTER_TYPE } from "../TaskStore";
+import { SORT_TYPE } from "../TaskStore";
+import { SORT_CRITERIA } from "../TaskStore";
 
 const FilterSelect = () => {
   const [selectedOption, setSelectedOption] = useState();
-  const [, setFilterType] = useAtom(FILTER_TYPE);
-  const [reload, setReload] = useAtom(FALSE_RELOAD);
-  const sortCriteria = [
-    "Sort by deadline ascending",
-    "Sort by deadline descending",
-  ];
+  const [, setSortType] = useAtom(SORT_TYPE);
+  const criteria = SORT_CRITERIA;
 
   const handleSelectChange = (event) => {
     setSelectedOption(event.target.value);
-    setFilterType(event.target.value);
-    setReload(!reload);
+    setSortType(event.target.value);
   };
 
   return (
@@ -26,7 +22,7 @@ const FilterSelect = () => {
         onChange={handleSelectChange}
         className="chakraFilterSelect"
       >
-        {sortCriteria?.map((item) => (
+        {criteria?.map((item) => (
           <option key={item} value={item}>
             {item}
           </option>

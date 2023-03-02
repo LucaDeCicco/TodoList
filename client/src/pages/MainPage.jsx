@@ -5,7 +5,7 @@ import "../style/MainPage.css";
 import AddTaskModal from "../components/AddTaskModal";
 import Loading from "../components/Loading";
 import { useAtom } from "jotai";
-import { FALSE_RELOAD, FILTER_TYPE } from "../TaskStore";
+import { FALSE_RELOAD, SORT_CRITERIA, SORT_TYPE } from "../TaskStore";
 
 const BACKEND = import.meta.env.VITE_BACKEND;
 
@@ -13,33 +13,55 @@ const MainPage = () => {
   const [toDoTasks, setToDoTasks] = useState();
   const [doneTasks, setDoneTasks] = useState();
   const [reload] = useAtom(FALSE_RELOAD);
-  const [filterType] = useAtom(FILTER_TYPE);
+  const [sortType] = useAtom(SORT_TYPE);
+  const sortCriteria = SORT_CRITERIA;
 
-  function routes() {
-    let toDoRoute = BACKEND + "/todo";
-    let doneRoute = BACKEND + "/done";
-    switch (filterType) {
-      case "Sort by deadline ascending":
-        toDoRoute += "/ascending";
-        doneRoute += "/ascending";
-        break;
-      case "Sort by deadline descending":
-        toDoRoute += "/descending";
-        doneRoute += "/descending";
-        break;
-    }
+  async function getData(toDoRoute, doneRoute) {
+    const responseToDo = await fetch(toDoRoute);
+    setToDoTasks(await responseToDo.json());
+    const responseDone = await fetch(doneRoute);
+    setDoneTasks(await responseDone.json());
+  }
+
+  function getRoutes() {
+    const toDoRoute = BACKEND + "/todo";
+    const doneRoute = BACKEND + "/done";
     return { toDoRoute, doneRoute };
   }
 
   const loadTasks = async () => {
+    const { toDoRoute, doneRoute } = getRoutes();
     try {
-      let { toDoRoute, doneRoute } = routes();
-      const responseToDo = await fetch(toDoRoute);
-      setToDoTasks(await responseToDo.json());
-      const responseDone = await fetch(doneRoute);
-      setDoneTasks(await responseDone.json());
+      await getData(toDoRoute, doneRoute);
     } catch (e) {
       console.log(e.message);
+    }
+  };
+
+  const sortTasks = () => {
+    if (sortType === sortCriteria[0]) {
+      setToDoTasks(
+        [...toDoTasks]?.sort(
+          (a, b) => new Date(a.deadline) - new Date(b.deadline)
+        )
+      );
+      setDoneTasks(
+        [...doneTasks]?.sort(
+          (a, b) => new Date(a.deadline) - new Date(b.deadline)
+        )
+      );
+    }
+    if (sortType === sortCriteria[1]) {
+      setToDoTasks(
+        [...toDoTasks]
+          ?.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+          .reverse()
+      );
+      setDoneTasks(
+        [...doneTasks]
+          ?.sort((a, b) => new Date(a.deadline) - new Date(b.deadline))
+          .reverse()
+      );
     }
   };
 
@@ -50,6 +72,12 @@ const MainPage = () => {
   useEffect(() => {
     loadTasks();
   }, [reload]);
+
+  useEffect(() => {
+    if (sortType) {
+      sortTasks();
+    }
+  }, [sortType]);
 
   return (
     <div>

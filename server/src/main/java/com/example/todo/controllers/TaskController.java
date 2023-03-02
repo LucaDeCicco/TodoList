@@ -34,10 +34,10 @@ public class TaskController {
         return taskService.getTasksByStatus(status);
     }
 
-    @GetMapping("/{status}/{orderBy}")
-    public List<Task> getTasksByStatusOrdered(@PathVariable String orderBy, @PathVariable TaskStatus status){
-        return taskService.getTasksByStatusOrdered(status,orderBy);
-    }
+//    @GetMapping("/{status}/{orderBy}")
+//    public List<Task> getTasksByStatusOrdered(@PathVariable String orderBy, @PathVariable TaskStatus status){
+//        return taskService.getTasksByStatusOrdered(status,orderBy);
+//    }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {

@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTaskByStatus(TaskStatus status);
-    List<Task> findTaskByStatusOrderByDeadlineAsc(TaskStatus status);
-    List<Task> findTaskByStatusOrderByDeadlineDesc(TaskStatus status);
+//    List<Task> findTaskByStatusOrderByDeadlineAsc(TaskStatus status);
+//    List<Task> findTaskByStatusOrderByDeadlineDesc(TaskStatus status);
 }
