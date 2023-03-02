@@ -12,8 +12,6 @@ function prepareTaskObject(task) {
 }
 
 export const postTask = async (task) => {
-  console.log("task");
-  console.log(task);
   try {
     await fetch(`${BACKEND}`, {
       method: "POST",

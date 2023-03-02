@@ -44,7 +44,7 @@ public class Task {
         this.estimatedDays = estimatedDays;
         this.estimatedHours = estimatedHours;
         this.estimatedMin = estimatedMin;
-        this.status = TaskStatus.TODO;
+        this.status = TaskStatus.todo;
         this.date = LocalDateTime.now();
     }
 }

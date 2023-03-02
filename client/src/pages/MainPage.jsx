@@ -5,7 +5,7 @@ import "../style/MainPage.css";
 import AddTaskModal from "../components/AddTaskModal";
 import Loading from "../components/Loading";
 import { useAtom } from "jotai";
-import { FALSE_RELOAD } from "../TaskStore";
+import { FALSE_RELOAD, FILTER_TYPE } from "../TaskStore";
 
 const BACKEND = import.meta.env.VITE_BACKEND;
 
@@ -13,17 +13,31 @@ const MainPage = () => {
   const [toDoTasks, setToDoTasks] = useState();
   const [doneTasks, setDoneTasks] = useState();
   const [reload] = useAtom(FALSE_RELOAD);
-  // const [filterType, setFilterType] =
+  const [filterType] = useAtom(FILTER_TYPE);
+
+  function routes() {
+    let toDoRoute = BACKEND + "/todo";
+    let doneRoute = BACKEND + "/done";
+    switch (filterType) {
+      case "Sort by deadline ascending":
+        toDoRoute += "/ascending";
+        doneRoute += "/ascending";
+        break;
+      case "Sort by deadline descending":
+        toDoRoute += "/descending";
+        doneRoute += "/descending";
+        break;
+    }
+    return { toDoRoute, doneRoute };
+  }
 
   const loadTasks = async () => {
     try {
-      const responseToDo = await fetch(`${BACKEND}/TODO`);
-      const toDo = await responseToDo.json();
-      const responseDone = await fetch(`${BACKEND}/DONE`);
-      const done = await responseDone.json();
-
-      setToDoTasks(toDo);
-      setDoneTasks(done);
+      let { toDoRoute, doneRoute } = routes();
+      const responseToDo = await fetch(toDoRoute);
+      setToDoTasks(await responseToDo.json());
+      const responseDone = await fetch(doneRoute);
+      setDoneTasks(await responseDone.json());
     } catch (e) {
       console.log(e.message);
     }

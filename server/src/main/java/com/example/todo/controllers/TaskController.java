@@ -21,8 +21,6 @@ public class TaskController {
 
     @PostMapping()
     public void postTask(@Valid @RequestBody TaskRequest taskRequest) {
-        System.out.println("controller");
-        System.out.println(taskRequest.toString());
         taskService.save(taskRequest);
     }
 
@@ -34,6 +32,11 @@ public class TaskController {
     @GetMapping("/{status}")
     public List<Task> getTasksByStatus(@PathVariable TaskStatus status) {
         return taskService.getTasksByStatus(status);
+    }
+
+    @GetMapping("/{status}/{orderBy}")
+    public List<Task> getTasksByStatusOrdered(@PathVariable String orderBy, @PathVariable TaskStatus status){
+        return taskService.getTasksByStatusOrdered(status,orderBy);
     }
 
     @DeleteMapping("/{id}")

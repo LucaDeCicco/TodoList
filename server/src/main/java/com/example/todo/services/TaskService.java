@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class TaskService {
@@ -47,13 +48,23 @@ public class TaskService {
     }
 
     public List<Task> getTasksByStatus(TaskStatus taskStatus) {
-        if (taskStatus.equals(TaskStatus.DONE)) {
-            return taskRepository.findTaskByStatus(TaskStatus.DONE);
+        if (taskStatus.equals(TaskStatus.done)) {
+            return taskRepository.findTaskByStatus(TaskStatus.done);
         } else {
-            return taskRepository.findTaskByStatus(TaskStatus.TODO);
+            return taskRepository.findTaskByStatus(TaskStatus.todo);
         }
     }
 
+    public List<Task> getTasksByStatusOrdered(TaskStatus taskStatus, String criteria) {
+        if ("ascending".equals(criteria)) {
+            return taskRepository.findTaskByStatusOrderByDeadlineAsc(taskStatus);
+        }
+        if ("descending".equals(criteria)) {
+            return taskRepository.findTaskByStatusOrderByDeadlineDesc(taskStatus);
+        } else {
+            return taskRepository.findTaskByStatus(taskStatus);
+        }
+    }
 
     public void delete(Long id) {
         taskRepository.deleteById(id);
@@ -61,7 +72,7 @@ public class TaskService {
 
     public void doneUpdate(Long id) {
         Task task = taskRepository.getReferenceById(id);
-        task.setStatus(TaskStatus.DONE);
+        task.setStatus(TaskStatus.done);
         taskRepository.save(task);
     }
 }
