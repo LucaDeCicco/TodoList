@@ -3,10 +3,14 @@ import { Box, CardHeader, Flex, Heading, Text } from "@chakra-ui/react";
 import { StarIcon, SunIcon, TimeIcon } from "@chakra-ui/icons";
 
 const TaskCardHeader = ({ data }) => {
+  // function getDate() {
+  //   const deadline = new Date(data.deadline);
+  //   deadline.setMinutes(deadline.getMinutes() + 120);
+  //   return deadline.toISOString().split("T")[0];
+  // }
   function getDate() {
-    const deadline = new Date(data.deadline);
-    deadline.setMinutes(deadline.getMinutes() + 120);
-    return deadline.toISOString().split("T")[0];
+    const deadline = moment.utc(data.deadline).utcOffset(120);
+    return deadline.format("YYYY-MM-DD");
   }
 
   const checkDeadline = () => {

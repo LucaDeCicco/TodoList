@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class TaskController {
 
     private final TaskService taskService;
@@ -20,14 +20,13 @@ public class TaskController {
     }
 
     @PostMapping()
-    public void postTask(@Valid @RequestBody TaskRequest taskRequest) {
+    public void postTask(@RequestBody @Valid TaskRequest taskRequest) {
         taskService.save(taskRequest);
     }
 
     @GetMapping()
     public List<Task> getTasks() {
         return taskService.get();
-
     }
 
     @GetMapping("/{status}")
@@ -38,13 +37,11 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
-
     }
 
     @PatchMapping("/{id}")
     public void doneUpdate(@PathVariable Long id) {
         taskService.doneUpdate(id);
-
     }
 
 }

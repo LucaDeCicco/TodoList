@@ -24,8 +24,6 @@ public class TaskService {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date yesterday = cal.getTime();
-        System.out.println("yesterday: "+yesterday);
-        System.out.println("request: "+taskRequest.getDeadline());
         if (taskRequest.getDeadline().before(yesterday)) {
             return false;
         }
@@ -67,8 +65,8 @@ public class TaskService {
     }
 
     public void doneUpdate(Long id) {
-        if (taskRepository.getReferenceById(id).getStatus()!=TaskStatus.done){
-            Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
+        Task task = taskRepository.findById(id).orElseThrow(()->new TaskNotFoundException(id));
+        if (task.getStatus()!=TaskStatus.done){
             task.setStatus(TaskStatus.done);
             taskRepository.save(task);
         }

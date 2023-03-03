@@ -1,7 +1,9 @@
 package com.example.todo.payloads;
 
 import com.example.todo.enums.TaskType;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
 
 import java.util.Date;
@@ -20,16 +22,4 @@ public class TaskRequest {
     private int estimatedHours;
     @PositiveOrZero
     private int estimatedMin;
-
-    @Override
-    public String toString() {
-        return "TaskRequest{" +
-                "taskType=" + taskType +
-                ", name='" + name + '\'' +
-                ", deadline=" + deadline +
-                ", estimatedDays=" + estimatedDays +
-                ", estimatedHours=" + estimatedHours +
-                ", estimatedMin=" + estimatedMin +
-                '}';
-    }
 }
