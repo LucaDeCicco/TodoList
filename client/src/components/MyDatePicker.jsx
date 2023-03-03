@@ -4,23 +4,21 @@ import { startOfDay } from "date-fns";
 import { useAtom } from "jotai";
 import { ADD_TASK_DETAILS } from "../TaskStore";
 
-const MyDatePicker = () => {
-  const [date, setDate] = useState();
-  const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);
+export default function MyDatePicker() {
+    const [date, setDate] = useState();
+    const [taskDetails, setTaskDetails] = useAtom(ADD_TASK_DETAILS);
 
-  useEffect(() => {
-    taskDetails.deadline = date;
-    setTaskDetails(taskDetails);
-  }, [date]);
+    useEffect(() => {
+        taskDetails.deadline = date;
+        setTaskDetails(taskDetails);
+    }, [date]);
 
-  return (
-    <SingleDatepicker
-      name="date-input"
-      date={date}
-      onDateChange={setDate}
-      minDate={startOfDay(new Date())}
-    />
-  );
-};
-
-export default MyDatePicker;
+    return (
+        <SingleDatepicker
+            name="date-input"
+            date={date}
+            onDateChange={setDate}
+            minDate={startOfDay(new Date())}
+        />
+    );
+}
