@@ -48,8 +48,6 @@ export const updateTaskStatus = async (id) => {
 };
 
 export const sortTasksAscending = (tasks) => {
-  console.log("service");
-  console.log(tasks);
   return [...tasks]?.sort(
     (a, b) => new Date(a.deadline) - new Date(b.deadline)
   );

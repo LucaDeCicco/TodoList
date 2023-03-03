@@ -1,6 +1,7 @@
 package com.example.todo.services;
 
 import com.example.todo.enums.TaskStatus;
+import com.example.todo.exceptions.TaskNotFoundException;
 import com.example.todo.models.Task;
 import com.example.todo.payloads.TaskRequest;
 import com.example.todo.repositories.TaskRepository;
@@ -23,6 +24,8 @@ public class TaskService {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, -1);
         Date yesterday = cal.getTime();
+        System.out.println("yesterday: "+yesterday);
+        System.out.println("request: "+taskRequest.getDeadline());
         if (taskRequest.getDeadline().before(yesterday)) {
             return false;
         }
@@ -65,7 +68,7 @@ public class TaskService {
 
     public void doneUpdate(Long id) {
         if (taskRepository.getReferenceById(id).getStatus()!=TaskStatus.done){
-            Task task = taskRepository.getReferenceById(id);
+            Task task = taskRepository.findById(id).orElseThrow(() -> new TaskNotFoundException(id));
             task.setStatus(TaskStatus.done);
             taskRepository.save(task);
         }

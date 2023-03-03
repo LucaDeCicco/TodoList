@@ -27,6 +27,7 @@ public class TaskController {
     @GetMapping()
     public List<Task> getTasks() {
         return taskService.get();
+
     }
 
     @GetMapping("/{status}")
@@ -37,11 +38,13 @@ public class TaskController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         taskService.delete(id);
+
     }
 
     @PatchMapping("/{id}")
     public void doneUpdate(@PathVariable Long id) {
         taskService.doneUpdate(id);
+
     }
 
 }
